@@ -38,7 +38,7 @@ def get_photo_exif_date(file):
         return get_date_from_timestamp(file)
 
 
-def get_mov_exif_date(video_path):
+def get_video_exif_date(video_path):
     video_path = video_path.replace("\\\\", "\\")
     try:
         command = [
@@ -111,7 +111,7 @@ def organize_file(file, file_type):
         date_str = get_photo_exif_date(file)
         date = format_date(date_str, "%Y:%m:%d %H:%M:%S")
     elif file_type == "video":
-        date_str, duration = get_mov_exif_date(file)
+        date_str, duration = get_video_exif_date(file)
         if duration:
             if float(duration) < LIVE_PHOTO_DURATION:
                 return move_live_photo(file)
