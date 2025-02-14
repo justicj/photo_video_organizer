@@ -42,6 +42,55 @@ It is currently written for use in Windows only.
     ```
 3. The script will create folders by date and move the files accordingly.
 
+## Example Destination Directory Layout
+
+After running the script, the destination directory will be organized as follows:
+
+
+GitHub Copilot
+Here is the updated README.md file with the example destination directory layout:
+
+```
+F:\destination
+│
+├── photo
+│   ├── 2025
+│   │   ├── 01
+│   │   │   ├── image1.jpg
+│   │   │   └── image2.jpg
+│   │   ├── 02
+│   │   │   ├── vacation.jpg
+│   │   │   └── sunset.jpg
+│   │   ├── 03
+│   │   │   ├── family.jpg
+│   │   │   └── event.jpg
+│   │   └── 04
+│   │       ├── spring.jpg
+│   │       └── flowers.jpg
+│   │
+│   └── no_date
+│       ├── uncategorized1.jpg
+│       └── uncategorized2.jpg
+│
+└── video
+    ├── 2025
+    │   ├── 01
+    │   │   ├── party.mov
+    │   │   └── travel.mov
+    │   ├── 02
+    │   │   ├── concert.mov
+    │   │   └── hiking.mov
+    │   ├── 03
+    │   │   ├── birthday.mov
+    │   │   └── event.mov
+    │   └── 04
+    │       ├── summer.mov
+    │       └── trip.mov
+    └── no_date
+        ├── uncategorized1.mov
+        └── uncategorized2.mov
+```
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
