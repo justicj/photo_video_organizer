@@ -38,7 +38,7 @@ It is currently written for use in Windows only.
 1. Place the photos and videos you want to organize in a directory.
 2. Run the script:
     ```sh
-    python .\organize_photos.py "F:\source" "F:\destination"
+    python .\organize.py "F:\source" "F:\destination"
     ```
 3. The script will create folders by date and move the files accordingly.
 
