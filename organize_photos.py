@@ -12,6 +12,7 @@ PICTURE_FILE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".heic"]
 MOVIE_FILE_EXTENSIONS = [".mov", ".mp4"]
 LIVE_PHOTO_DURATION = 3.5
 FFPROBE_URL = "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl-shared.zip"
+FFPROBE_PATH = "./ffmpeg-master-latest-win64-gpl-shared/bin/ffprobe.exe"
 
 
 def get_photo_exif_date(file):
@@ -38,7 +39,7 @@ def get_mov_exif_date(video_path):
     video_path = video_path.replace("\\\\", "\\")
     try:
         command = [
-            "./ffprobe.exe",
+            FFPROBE_PATH,
             "-v",
             "quiet",
             "-print_format",
@@ -119,6 +120,16 @@ def organize_file(file, file_type):
     return False
 
 
+def download_tools():
+    print("Downloading ffmpeg tools")
+    r = requests.get(FFPROBE_URL, timeout=90)
+    with open("ffmpeg.zip", "wb") as f:
+        f.write(r.content)
+        with zipfile.ZipFile("ffmpeg.zip", "r") as zip_ref:
+            zip_ref.extractall()
+    os.remove("ffmpeg.zip")
+
+
 if __name__ == "__main__":
     register_heif_opener()
     parser = argparse.ArgumentParser()
@@ -149,25 +160,11 @@ if __name__ == "__main__":
     print(
         f"Organizing files from {SOURCE_PICTURE_DIRECTORY} to {DESTINATION_PICTURE_DIRECTORY}"
     )
-    # download ffprobe.exe with requests if not present
-    if not os.path.exists("ffprobe.exe"):
-        print("Downloading ffprobe.exe")
-        r = requests.get(FFPROBE_URL, timeout=90)
-        with open("ffmpeg.zip", "wb") as f:
-            f.write(r.content)
-            import zipfile
-            import shutil
+    if not os.path.exists(FFPROBE_PATH):
+        import zipfile
 
-            with zipfile.ZipFile("ffmpeg.zip", "r") as zip_ref:
-                zip_ref.extract(
-                    "ffmpeg-master-latest-win64-gpl-shared/bin/ffprobe.exe"
-                )
-        os.rename(
-            "ffmpeg-master-latest-win64-gpl-shared/bin/ffprobe.exe",
-            "ffprobe.exe",
-        )
-        os.remove("ffmpeg.zip")
-        shutil.rmtree("ffmpeg-master-latest-win64-gpl-shared")
+        download_tools()
+
     successful = []
     no_date = []
     unssupported = []
@@ -194,3 +191,4 @@ if __name__ == "__main__":
     print(
         f"Files moved to {DESTINATION_PICTURE_DIRECTORY}\\no_date: {len(no_date)}"
     )
+    print(f"Unsupported files: {len(unssupported)}")
