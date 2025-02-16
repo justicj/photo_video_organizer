@@ -46,10 +46,6 @@ It is currently written for use in Windows only.
 
 After running the script, the destination directory will be organized as follows:
 
-
-GitHub Copilot
-Here is the updated README.md file with the example destination directory layout:
-
 ```
 F:\destination
 │
